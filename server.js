@@ -15,8 +15,6 @@ app.use((req, res, next) => {
     fs.appendFile('server.log', log + '/n', (err) => {
         if (err) {
             console.log('Unable to append to server.log');
-            console.log(err);
-            res.render('/maintenance.hbs');
         }
     });
     next();
@@ -26,7 +24,12 @@ app.use((req, res, next) => {
 // });
 app.use(express.static(__dirname + '/public'));
 
-
+app.get('/project', (req, res) => {
+    res.render('project.hbs', {
+        pageTitle: 'Best website ever',
+        currentYear: new Date().getFullYear(),
+    });
+});
 app.get('/about', (req, res) => {
     res.render('about.hbs', {
         pageTitle: 'Best website ever',
